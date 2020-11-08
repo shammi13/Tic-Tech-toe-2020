@@ -65,18 +65,18 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul id="top-menu" class="nav navbar-nav navbar-right main-nav">
-            <li style="font-weight: bold;font-family: Comic Sans MS, Comic Sans, cursive;"><a><u>Welcome 
+            <li style="font-weight: bold;font-family: Comic Sans MS, Comic Sans, cursive;"><a><u>
             <?php
             session_start();
             if($_SESSION['login_user'])
             {
-              $sid = $_SESSION['login_user'];
+              $sid = $_GET['sid'];
               $conn = mysqli_connect("localhost", "root", "", "tictechtoe");
               $query = "SELECT * FROM student_details WHERE s_id = '$sid'";
               $result = mysqli_query($conn,$query);
               $row = mysqli_fetch_array($result);
-              $balance = $row['s_name'];
-              echo $balance;  
+              $name = $row['s_name'];
+              echo $name;  
             }
             else{
               echo "<script>";
@@ -86,10 +86,10 @@
             }
             ?>!       </u> </a>
             </li>
-            <li class="active"><a href="student_dashboard.php">Home</a></li> 
-            <li><a href="stationary.php">Stationary</a></li> 
-            <li><a href="canteen.php">Canteen</a></li> 
-            <li><a href="event.php">Events</a></li>                 
+            <li class="active"><a href="parent_dashboard.php">Home</a></li> 
+            <!-- <li><a href="stationary.php">Stationary</a></li>  -->
+            <!-- <li><a href="canteen.php">Canteen</a></li>  -->
+            <!-- <li><a href="event.php">Events</a></li>                  -->
             <li><a href="logout.php">Logout</a></li>               
             <!-- <li><a href="#" id="mu-search-icon"><i class="fa fa-search"></i></a></li> -->
           </ul>                     
@@ -113,7 +113,7 @@
         <span></span>
         <h2>
           <?php
-          $sid = $_SESSION['login_user'];
+          $sid = $_GET['sid'];
           $conn = mysqli_connect("localhost", "root", "", "tictechtoe");
           $query = "SELECT * FROM student_details WHERE s_id = '$sid'";
           $result = mysqli_query($conn,$query);
@@ -137,7 +137,7 @@
         <span></span>
         <h2>
           <?php
-          $sid = $_SESSION['login_user'];
+          $sid = $_GET['sid'];
           $conn = mysqli_connect("localhost", "root", "", "tictechtoe");
           $query = "SELECT * FROM student_details WHERE s_id = '$sid'";
           $result = mysqli_query($conn,$query);
@@ -162,7 +162,7 @@
         <span></span>
         <h2>
           <?php
-          $sid = $_SESSION['login_user'];
+          $sid = $_GET['sid'];
           $conn = mysqli_connect("localhost", "root", "", "tictechtoe");
           $query = "SELECT * FROM student_details WHERE s_id = '$sid'";
           $result = mysqli_query($conn,$query);
@@ -185,7 +185,7 @@
         <span></span>
         <h2>
           <?php
-          $sid = $_SESSION['login_user'];
+          $sid = $_GET['sid'];
           $conn = mysqli_connect("localhost", "root", "", "tictechtoe");
           $query = "SELECT * FROM student_details WHERE s_id = '$sid'";
           $result = mysqli_query($conn,$query);
@@ -201,49 +201,11 @@
   </section>
   <!-- End Slider -->
   <!-- Start service  -->
-  <section id="mu-service">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-12 col-md-12">
-          <div class="mu-service-area" >
-            <!-- Start single service -->
-            <a href="stationary.php" >
-            <div class="mu-service-single " style="background-color: rgb(30, 144, 255);">
-              <span class="fa fa-book"></span>
-              <h3>Stationary</h3>
-            </div>
-          </a>
-            <!-- Start single service -->
-            <!-- Start single service -->
-            <a href="canteen.php">
-            <div class="mu-service-single" style="background-color: rgb(34, 139, 34);">
-              <span class="fa fa-users"></span>
-              <h3>Canteen</h3>
-            </div>
-          </a>
-            <!-- Start single service -->
-            <!-- Start single service -->
-            <a href="event.php">
-            <div class="mu-service-single" style="background-color: rgb(30, 144, 255);">
-              <span class="fa fa-table"></span>
-              <h3>Events</h3>
-            </div>
-            </a>      
-            <!-- Start single service -->
-          </div>
-
-        </div>
-      </div>
-    </div>
-  </section>
   <!-- End service  -->
 
  
 
   <!-- Start features section -->
-  <section id="mu-features">
-
-  </section>
   <!-- End features section -->
 
   <!-- Start latest course section -->
@@ -274,7 +236,7 @@
                       <a class="mu-course-details" href="#">Expenditure</a>
                       <span class="mu-course-price" href="#">
                         <?php
-                        $sid = $_SESSION['login_user'];
+                        $sid = $_GET['sid'];
                         $conn = mysqli_connect("localhost", "root", "", "tictechtoe");
                         $query = "SELECT SUM(cost) FROM transaction WHERE s_id = '$sid' and item_type = 'canteen'";
                         $result = mysqli_query($conn,$query);
@@ -282,12 +244,12 @@
                         $h = $row[0];
                         if($h > 0)
                         {
-                          echo "₹$h";
+                        	echo "₹$h";
                         }
-                        else
-                        {
-                          echo "₹0";
-                        }
+                       	else
+                       	{
+                       		echo "₹0";
+                       	}
                         ?>
                       </span>
                     </div>
@@ -308,7 +270,7 @@
                       <a class="mu-course-details" href="#">Expenditure</a>
                       <span class="mu-course-price" href="#">
                         <?php
-                        $sid = $_SESSION['login_user'];
+                        $sid = $_GET['sid'];
                         $conn = mysqli_connect("localhost", "root", "", "tictechtoe");
                         $query = "SELECT SUM(cost) FROM transaction WHERE s_id = '$sid' and item_type = 'stationary'";
                         $result = mysqli_query($conn,$query);
@@ -316,12 +278,12 @@
                         $h = $row[0];
                         if($h > 0)
                         {
-                          echo "₹$h";
+                        	echo "₹$h";
                         }
-                        else
-                        {
-                          echo "₹0";
-                        }
+                       	else
+                       	{
+                       		echo "₹0";
+                       	}
                         ?>
                       </span>
                     </div>
@@ -342,7 +304,7 @@
                       <a class="mu-course-details" href="#">Expenditure</a>
                       <span class="mu-course-price" href="#">
                         <?php
-                        $sid = $_SESSION['login_user'];
+                        $sid = $_GET['sid'];
                         $conn = mysqli_connect("localhost", "root", "", "tictechtoe");
                         $query = "SELECT SUM(cost) FROM transaction WHERE s_id = '$sid' and item_type = 'events'";
                         $result = mysqli_query($conn,$query);
@@ -350,12 +312,12 @@
                         $h = $row[0];
                         if($h > 0)
                         {
-                          echo "₹$h";
+                        	echo "₹$h";
                         }
-                        else
-                        {
-                          echo "₹0";
-                        }
+                       	else
+                       	{
+                       		echo "₹0";
+                       	}
                         ?>
                       </span>
                     </div>

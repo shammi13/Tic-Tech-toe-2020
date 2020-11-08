@@ -73,20 +73,20 @@
             session_start();
             if($_SESSION['login_user'])
             {
-              $sid = $_SESSION['login_user'];
+              $pid = $_SESSION['login_user'];
               $conn = mysqli_connect("localhost", "root", "", "tictechtoe");
-              $query = "SELECT * FROM student_details WHERE s_id = '$sid'";
+              $query = "SELECT * FROM student_details WHERE p_id = '$pid'";
               $result = mysqli_query($conn,$query);
               $row = mysqli_fetch_array($result);
-              $balance = $row['s_name'];
-              echo $balance;  
+              $name = $row['p_name'];
+              echo $name;  
             }
             else{
               echo "<script>window.open('../index.php', '_self')</script>";
             }
             ?>!        </a>
             </li>
-            <li class="active"><a>Home</a></li>                
+            <li class="active"><a href="parent_dashboard.php">Home</a></li>                
             <li><a href="logout.php">Logout</a></li>              
             <!-- <li><a href="#" id="mu-search-icon"><i class="fa fa-search"></i></a></li> -->
           </ul>                    
