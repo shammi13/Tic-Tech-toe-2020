@@ -19,22 +19,22 @@
 		
 		//$limit = $limit + $canteen_limit;
 		
-		$query1 = "UPDATE `student_details` SET `balance`='$amount', `canteen_limit`='$limit' WHERE s_id='$s_id' ";
+		$query1 = "UPDATE `student_details` SET `canteen_limit`='$limit' WHERE s_id='$s_id' ";
 		
 		if($conn->query($query1) == true)
 		{
-			echo "updated<br>"; 
+			// echo "updated<br>"; 
 		}
 		else
 		{
-			echo "no update<br>";
+			// echo "no update<br>";
 		}
 	}
 	else
 	{
-		echo "no student id found...!!<br>";
+		// echo "no student id found...!!<br>";
 	}
 
-	echo "<script>window.open('updatelimit.php', '_self')</script>";
+	echo "<script>window.open('parent_dashboard.php', '_self')</script>";
 
 ?>
