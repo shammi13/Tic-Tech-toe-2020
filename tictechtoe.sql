@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 08, 2020 at 08:53 AM
+-- Generation Time: Nov 08, 2020 at 09:53 AM
 -- Server version: 10.1.37-MariaDB
 -- PHP Version: 7.3.1
 
@@ -132,10 +132,10 @@ CREATE TABLE `student_details` (
 --
 
 INSERT INTO `student_details` (`s_id`, `s_name`, `p_id`, `p_name`, `canteen_limit`, `balance`, `total_expenditure`, `healthy`, `unhealthy`) VALUES
-(1, 'jash', 501, 'xyz', 0, 1561, 0, 0, 0),
-(2, 'vidhi', 501, 'abc', 0, 3050, 0, 0, 0),
-(3, 'mahir', 501, 'pqr', 0, 4800, 0, 0, 0),
-(4, 'krunal', 504, 'abc', 500, 10000, 3000, 0, 10);
+(1, 'jash', 501, 'xyz', 500, 1500, 150, 10, 6),
+(2, 'vidhi', 501, 'abc', 1000, 3000, 850, 2, 16),
+(3, 'mahir', 501, 'pqr', 200, 4800, 450, 0, 0),
+(4, 'krunal', 504, 'abc', 500, 10000, 3000, 2, 10);
 
 -- --------------------------------------------------------
 
@@ -180,7 +180,7 @@ CREATE TABLE `transaction` (
 --
 
 INSERT INTO `transaction` (`t_id`, `s_id`, `p_id`, `p_name`, `cost`, `time`, `item_type`) VALUES
-(202, 1, 1001, '', 500, '2020-11-11', ''),
+(202, 1, 1001, 'canteen', 500, '2020-11-11', ''),
 (203, 1, 1002, '', 400, '2020-12-12', 'events'),
 (204, 2, 1003, '', 500, '2020-10-12', 'events'),
 (205, 2, 1004, '', 100, '2020-10-12', 'canteen'),
