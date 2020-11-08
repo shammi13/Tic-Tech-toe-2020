@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">    
-    <title>Varsity | Contact</title>
+    <title>HBK | AddBalance</title>
 
     <!-- Favicon -->
     <link rel="shortcut icon" href="assets/img/favicon.ico" type="image/x-icon">
@@ -68,7 +68,7 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul id="top-menu" class="nav navbar-nav navbar-right main-nav">
-            <li style="font-weight: bold;"><a>Welcome
+            <li style="font-weight: bold;font-family: Comic Sans MS, Comic Sans, cursive;"><a><u>Welcome Parent,  
             <?php
             session_start();
             if($_SESSION['login_user'])
@@ -81,12 +81,11 @@
               $name = $row['p_name'];
               echo $name;  
             }
-            else{
-              echo "<script>window.open('../index.php', '_self')</script>";
-            }
-            ?>!        </a>
-            </li>
-            <li class="active"><a href="parent_dashboard.php">Home</a></li>                
+            ?>!       </u> </a>
+            </li>     
+            <li ><a href="parent_dashboard.php">Home</a></li>
+            <li class="active"><a href="addBalance.php">Add Balance</a></li>
+            <li><a href="updateLimit.php">Update Limit</a></li>
             <li><a href="logout.php">Logout</a></li>              
             <!-- <li><a href="#" id="mu-search-icon"><i class="fa fa-search"></i></a></li> -->
           </ul>                    
@@ -120,7 +119,7 @@
          <div class="mu-page-breadcrumb-area">
            <h2>Add Balance</h2>
            <ol class="breadcrumb">
-            <li><a href="#">Home</a></li>            
+            <li><a href="parent_dashboard.php">Home</a></li>            
             <li class="active">Add Balance</li>
           </ol>
          </div>
@@ -149,11 +148,32 @@
 				<center>
                   <form class="contactform" action="addingBalance.php">
                     <p class="comment-form-email" >
-                      <label for="s_id" >Student Id : <span class="required">*</span></label>
-                      <input type="amount" required="required" aria-required="true"  value="" name="s_id">
+                      <label for="s_id" >Name: <span class="required">*</span></label>
+                      <!-- <input type="amount" required="required" aria-required="true"  value="" name="s_id"> -->
+                      <?php
+
+              $pid = $_SESSION['login_user'];
+              $conn = mysqli_connect("localhost", "root", "", "tictechtoe");
+
+              $query = " SELECT * FROM `student_details` WHERE p_id='$pid' ";
+
+              $result = $conn->query($query);
+              
+              echo "<select name='students' style='width:190px; height:35px;'>";
+              while($row = mysqli_fetch_array($result))
+              {
+                $sid = $row['s_id'];
+                #$query2 = " SELECT * FROM `student_details` WHERE s_id='$sid' ";
+                // $r = $conn->query($query2);
+                // $r2 = mysqli_fetch_array($r);
+                $sname = $row['s_name'];
+                echo "<option value='$sid'>$sname</option>";
+              }
+              echo "</select>";
+            ?>
                     </p>
                     <p class="comment-form-email">
-                      <label for="amount">Total amount <span class="required">*</span></label>
+                      <label for="amount">Add Amount <span class="required">*</span></label>
                       <input type="amount" required="required" aria-required="true" value="" name="amount">
                     </p>
 					<p class="comment-form-email">

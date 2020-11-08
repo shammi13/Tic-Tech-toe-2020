@@ -1,6 +1,6 @@
 <?php
 	
-	$s_id = $_GET['s_id'];
+	$s_id = $_GET['students'];
 	
 	$limit = $_GET['canteenlimit'];
 	
