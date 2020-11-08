@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 08, 2020 at 05:37 AM
+-- Generation Time: Nov 08, 2020 at 08:53 AM
 -- Server version: 10.1.37-MariaDB
 -- PHP Version: 7.3.1
 
@@ -55,8 +55,8 @@ INSERT INTO `canteen` (`item_id`, `item_name`, `item_type`, `item_cost`) VALUES
 
 CREATE TABLE `deitary_habits` (
   `s_id` int(11) NOT NULL,
-  `year` year(4) NOT NULL,
-  `month` date NOT NULL,
+  `year` int(4) NOT NULL,
+  `month` int(10) NOT NULL,
   `healthy` int(11) NOT NULL,
   `unhealthy` int(11) NOT NULL,
   `total_expenditure` int(11) NOT NULL
@@ -67,8 +67,26 @@ CREATE TABLE `deitary_habits` (
 --
 
 INSERT INTO `deitary_habits` (`s_id`, `year`, `month`, `healthy`, `unhealthy`, `total_expenditure`) VALUES
-(1, 2020, '2020-11-03', 10, 1, 300),
-(2, 2020, '2020-03-08', 10, 1, 500);
+(0, 2020, 11, 10, 1, 300),
+(0, 0, 2020, 10, 1, 500),
+(1, 2020, 11, 0, 0, 0),
+(2, 2020, 11, 0, 0, 0),
+(1, 2020, 11, 0, 0, 0),
+(2, 2020, 11, 0, 0, 0),
+(1, 2020, 11, 0, 0, 100),
+(2, 2020, 11, 0, 0, 0),
+(3, 2020, 11, 0, 20, 500),
+(0, 2020, 11, 0, 0, 0),
+(0, 2020, 11, 0, 0, 0),
+(0, 2020, 11, 0, 0, 0),
+(0, 2020, 11, 0, 0, 0),
+(1, 2020, 11, 4, 9, 0),
+(1, 2020, 11, 0, 0, 0),
+(1, 2020, 11, 0, 0, 0),
+(1, 2020, 11, 10, 0, 0),
+(1, 2020, 11, 0, 0, 0),
+(2, 2020, 11, 0, 0, 0),
+(3, 2020, 11, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -114,9 +132,9 @@ CREATE TABLE `student_details` (
 --
 
 INSERT INTO `student_details` (`s_id`, `s_name`, `p_id`, `p_name`, `canteen_limit`, `balance`, `total_expenditure`, `healthy`, `unhealthy`) VALUES
-(1, 'jash', 501, 'xyz', 10, 4940, 610, 12, 1),
-(2, 'vidhi', 501, 'abc', 200, 3000, 500, 10, 1),
-(3, 'mahir', 501, 'pqr', 200, 4800, 500, 0, 20),
+(1, 'jash', 501, 'xyz', 0, 1561, 0, 0, 0),
+(2, 'vidhi', 501, 'abc', 0, 3050, 0, 0, 0),
+(3, 'mahir', 501, 'pqr', 0, 4800, 0, 0, 0),
 (4, 'krunal', 504, 'abc', 500, 10000, 3000, 0, 10);
 
 -- --------------------------------------------------------
@@ -169,7 +187,13 @@ INSERT INTO `transaction` (`t_id`, `s_id`, `p_id`, `p_name`, `cost`, `time`, `it
 (206, 3, 1001, '', 500, '2020-11-11', 'events'),
 (207, 1, 2001, 'clip-board', 100, '2020-11-08', 'stationary'),
 (208, 1, 1001, 'icecream', 100, '2020-11-08', 'canteen'),
-(209, 1, 1003, 'salad', 50, '2020-11-08', 'canteen');
+(209, 1, 1003, 'salad', 50, '2020-11-08', 'canteen'),
+(210, 1, 2001, 'clip-board', 100, '2020-11-08', 'stationary'),
+(211, 1, 1003, 'salad', 50, '2020-11-08', 'canteen'),
+(212, 1, 3002, 'Picnic', 50, '2020-11-08', 'events'),
+(213, 1, 1003, 'salad', 50, '2020-11-08', 'canteen'),
+(214, 1, 2001, 'clip-board', 100, '2020-11-08', 'stationary'),
+(215, 1, 2001, 'clip-board', 100, '2020-11-01', 'stationary');
 
 --
 -- Indexes for dumped tables
@@ -180,12 +204,6 @@ INSERT INTO `transaction` (`t_id`, `s_id`, `p_id`, `p_name`, `cost`, `time`, `it
 --
 ALTER TABLE `canteen`
   ADD PRIMARY KEY (`item_id`);
-
---
--- Indexes for table `deitary_habits`
---
-ALTER TABLE `deitary_habits`
-  ADD PRIMARY KEY (`s_id`);
 
 --
 -- Indexes for table `parent_login`
@@ -219,7 +237,7 @@ ALTER TABLE `transaction`
 -- AUTO_INCREMENT for table `transaction`
 --
 ALTER TABLE `transaction`
-  MODIFY `t_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=210;
+  MODIFY `t_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=216;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
