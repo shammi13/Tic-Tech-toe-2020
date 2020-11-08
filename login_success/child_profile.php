@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">    
-    <title>HBK School | Home</title>
+    <title>HBK School | Student Profile</title>
 
     <!-- Favicon -->
     <link rel="shortcut icon" href="assets/img/favicon.ico" type="image/x-icon">
@@ -65,7 +65,7 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul id="top-menu" class="nav navbar-nav navbar-right main-nav">
-            <li style="font-weight: bold;font-family: Comic Sans MS, Comic Sans, cursive;"><a><u>
+            <li style="font-weight: bold;font-family: Comic Sans MS, Comic Sans, cursive;"><a><u> Child Profile: 
             <?php
             session_start();
             if($_SESSION['login_user'])
@@ -84,9 +84,10 @@
               echo "</script>";
               echo "<script>window.open('../index.php', '_self')</script>";
             }
-            ?>!       </u> </a>
+            ?>     </u> </a>
             </li>
-            <li class="active"><a href="parent_dashboard.php">Home</a></li> 
+            <li ><a href="parent_dashboard.php">Home</a></li> 
+            <li class="active"><a href="child_profile.php">Student Profile</a></li> 
             <!-- <li><a href="stationary.php">Stationary</a></li>  -->
             <!-- <li><a href="canteen.php">Canteen</a></li>  -->
             <!-- <li><a href="event.php">Events</a></li>                  -->
@@ -167,8 +168,8 @@
           $query = "SELECT * FROM student_details WHERE s_id = '$sid'";
           $result = mysqli_query($conn,$query);
           $row = mysqli_fetch_array($result);
-          $exp = $row['canteen_limit'];
-          echo $exp;
+          $clim = $row['canteen_limit'];
+          echo $clim;
           ?>
         </h2>
       </div>
@@ -241,15 +242,15 @@
                         $query = "SELECT SUM(cost) FROM transaction WHERE s_id = '$sid' and item_type = 'canteen'";
                         $result = mysqli_query($conn,$query);
                         $row = mysqli_fetch_array($result);
-                        $h = $row[0];
-                        if($h > 0)
+                        $can = $row[0];
+                        if($can > 0)
                         {
-                        	echo "₹$h";
+                          echo "₹$can";
                         }
-                       	else
-                       	{
-                       		echo "₹0";
-                       	}
+                        else
+                        {
+                          echo "₹0";
+                        }
                         ?>
                       </span>
                     </div>
@@ -275,16 +276,15 @@
                         $query = "SELECT SUM(cost) FROM transaction WHERE s_id = '$sid' and item_type = 'stationary'";
                         $result = mysqli_query($conn,$query);
                         $row = mysqli_fetch_array($result);
-                        $h = $row[0];
-                        if($h > 0)
+                        $stat = $row[0];
+                        if($stat > 0)
                         {
-                        	echo "₹$h";
+                          echo "₹$stat";
                         }
-                       	else
-                       	{
-                       		echo "₹0";
-                       	}
-                        ?>
+                        else
+                        {
+                          echo "₹0";
+                        }                        ?>
                       </span>
                     </div>
                   </div>
@@ -309,15 +309,15 @@
                         $query = "SELECT SUM(cost) FROM transaction WHERE s_id = '$sid' and item_type = 'events'";
                         $result = mysqli_query($conn,$query);
                         $row = mysqli_fetch_array($result);
-                        $h = $row[0];
-                        if($h > 0)
+                        $event = $row[0];
+                        if($event > 0)
                         {
-                        	echo "₹$h";
+                          echo "₹$event";
                         }
-                       	else
-                       	{
-                       		echo "₹0";
-                       	}
+                        else
+                        {
+                          echo "₹0";
+                        }
                         ?>
                       </span>
                     </div>
@@ -330,6 +330,112 @@
         </div>
       </div>
     </div>
+     <section id="mu-features">
+              <?php
+               
+              $dataPoints = array( 
+                array("y" => (int)$h,"label" => "Healthy Food Items" ),
+                array("y" => (int)$uh,"label" => "UnHealthy Food Items" ),
+              );
+               
+              ?>
+              <div id="chartContainer" style="height: 370px; width: 100%;"></div>
+              <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+              
+           
+
+            <br><br><br><br>
+              <?php
+ 
+                $dataPoints1 = array( 
+                  array("y" => (int)$can, "label" => "Canteen" ),
+                  array("y" => (int)$stat, "label" => "Stationary" ),
+                  array("y" => (int)$event, "label" => "Events" ),
+                );
+                 
+                ?>
+              <div id="chartContainer2" style="height: 370px; width: 100%;"></div>
+              <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+
+              <br><br><br><br>
+              <?php
+ 
+              $total_balance = $balance + $exp;
+              $one_type = (float)$balance/$total_balance;
+              $second_type = (float)$exp/$total_balance;
+                $dataPoints2 = array( 
+                array("label"=>"Remaining Balance", "y"=>$one_type*100),
+                array("label"=>"Expenditure", "y"=>$second_type*100)
+              )
+                 
+                ?>
+                 <div id="chartContainer1" style="height: 370px; width: 100%;"></div>
+              <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+
+              <script>
+              window.onload = function() {
+
+                var chart = new CanvasJS.Chart("chartContainer", {
+                animationEnabled: true,
+                title:{
+                  text: "Chart of Healthy-UnHealthy Food Count"
+                },
+                axisY: {
+                  title: "No of Items",
+                  includeZero: true,
+                },
+                data: [{
+                  type: "bar",
+                  indexLabel: "{y}",
+                  indexLabelPlacement: "inside",
+                  indexLabelFontWeight: "bolder",
+                  indexLabelFontColor: "white",
+                  dataPoints: <?php echo json_encode($dataPoints, JSON_NUMERIC_CHECK); ?>
+                }]
+              });
+              chart.render();
+
+               
+              var chart = new CanvasJS.Chart("chartContainer1", {
+                animationEnabled: true,
+                theme: "light2",
+                title:{
+                  text: "Expenditure per section"
+                },
+                axisY: {
+                  title: "Expenditure (in rupees)"
+                },
+                data: [{
+                  type: "column",
+                  indexLabel: "{y}",
+                  yValueFormatString: "#,##0.## rupees",
+                  dataPoints: <?php echo json_encode($dataPoints1, JSON_NUMERIC_CHECK); ?>
+                }]
+              });
+              chart.render();
+
+
+
+              var chart = new CanvasJS.Chart("chartContainer2", {
+                animationEnabled: true,
+                title: {
+                  text: "Usage Of Total Balance"
+                },
+                subtitles: [{
+                  text: ""
+                }],
+                data: [{
+                  type: "pie",
+                  yValueFormatString: "#,##0.00\"%\"",
+                  indexLabel: "{label} ({y})",
+                  dataPoints: <?php echo json_encode($dataPoints2, JSON_NUMERIC_CHECK); ?>
+                }]
+              });
+              chart.render();
+               
+              }
+              </script>
+            </section>
   </section>
   <!-- End latest course section -->
 
