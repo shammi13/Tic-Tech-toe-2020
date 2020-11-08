@@ -17,7 +17,7 @@
 		$canteen_limit = (int)$row['canteen_limit'];
 		
 		$amount = $amount + $balance;
-		// $limit = $limit + $canteen_limit;
+		$limit = $limit + $canteen_limit;
 		
 		$query1 = "UPDATE `student_details` SET `balance`='$amount', `canteen_limit`='$limit' WHERE s_id='$s_id' ";
 		
